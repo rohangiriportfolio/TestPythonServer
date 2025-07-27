@@ -6,6 +6,9 @@ import numpy as np
 from collections import defaultdict
 import requests
 import time
+import os
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -103,5 +106,8 @@ def predict_test():
     result = run_clustering(test_coords, radius_km)
     return jsonify(result)
 
+# if __name__ == '__main__':
+#     app.run(port=5001, debug=True)
 if __name__ == '__main__':
-    app.run(port=5001, debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Render sets this automatically
+    app.run(host='0.0.0.0', port=port)
